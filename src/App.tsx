@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './styles/App.css';
+import Header from './components/Header';
+import SideBar from './components/SideBar';
+import Container from './components/Container';
+import TimeLine from './components/TimeLine';
+import VideoPlayer from './components/VideoPlayer';
+import AppContext from './Helper/AppContext';
+import {useState} from 'react';
 
 function App() {
+  const [playingVideo, setPlayingVideo] = useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{
+      video: {
+        playing: playingVideo,
+        setPlaying: setPlayingVideo
+      }
+    }}>
+      <div className="Amotion">
+        <Header />
+        <Container>
+          <SideBar
+            title={"Items:"}
+          />
+          <VideoPlayer />
+        </Container>
+        <TimeLine />
+      </div>
+    </AppContext.Provider>
   );
 }
 
